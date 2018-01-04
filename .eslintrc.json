@@ -4,10 +4,8 @@
     "commonjs": true
   },
   "plugins": [
-    "import",
-    "destructuring"
+    "import"
   ],
-  "extends": ["plugin:destructuring/recommended"],
   "parserOptions": {
     "ecmaVersion": 8,
     "sourceType": "module",
