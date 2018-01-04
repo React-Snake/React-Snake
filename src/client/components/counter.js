@@ -3,18 +3,18 @@ import { connect } from 'react-redux';
 import { up, down, left, right } from '../actions';
 
 class Counter extends Component {
-    incrementIfOdd = () => {
+    upIfOdd = () => {
         // Extra: Implement an increment function that
         // only increments if the counter value is odd
         if (this.props.count % 2 !== 0) {
-            this.props.increment(); 
+            this.props.up(); 
         }
     };
 
-    incrementAsync = () => {
+    upAsync = () => {
         // Extra: Implement an increment function that
         // increments after waiting for one second
-        setTimeout(() => this.props.increment(), 1000); 
+        setTimeout(() => this.props.up(), 1000); 
     };
 
     render() {
@@ -25,27 +25,27 @@ class Counter extends Component {
             <p>
                 Clicked: {this.props.count} times
                 {" "}
-                <button onClick={() => this.props.increment() }>
+                <button onClick={() => this.props.upifOdd() }>
                     +
                 </button>
                 {" "}
-                <button onClick={() => this.props.decrement() }>
+                <button onClick={() => this.props.down() }>
                     -
                 </button>
                 {" "}
                  { }
                 { 
-                <button onClick={this.incrementIfOdd}>
-                    Increment if odd
+                <button onClick={this.upIfOdd}>
+                    up if odd
                 </button>
                 {" "}
-                <button onClick={this.incrementAsync}>
-                    Increment async
+                <button onClick={this.upAsync}>
+                    up async
                 </button> 
             </p>
         );
     }
-}
+};
 
 // The mapStateToProps function specifies which portion of the 
 // state tree this component needs to receive. In this case, 
@@ -66,5 +66,5 @@ const mapStateToProps = (state) => {
 // is only a dumb React component. We pass in all of the functions that
 // are reliant on Redux, along with the component itself, so that Redux
 // makes itself known to this component.
-const connected = connect(mapStateToProps, { increment, decrement });
+const connected = connect(mapStateToProps, { up, down, left, right });
 export default connect(Counter);
