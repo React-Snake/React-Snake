@@ -1,0 +1,26 @@
+{
+    "colors": {
+      "board": "#fff",
+      "food": "#000",
+      "snakeBody": "#C02",
+      "snakeHead": "#E00"
+    },
+    "board": {
+      "stageWidth": 300,
+      "stageHeight": 300,
+      "tileSize": 10
+    },
+    "text": {
+      "mainMenu": {
+        "title": "<Snake/>",
+        "topScore:": "Top Score:",
+        "playButton": "Play"
+      },
+      "game": {
+        "score": "Score:",
+        "gameOver": "Game Over",
+        "restart": "Restart",
+        "exit": "Main Menu"
+      }
+    }
+  }

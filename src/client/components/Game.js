@@ -1,21 +1,30 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Stage, Layer, Rect, Text } from 'react-konva';
+import game from '../game.json';
+import Food from './Food.js';
 
 export class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        stageHeight: 300,
-        stageWidth: 400,
         fps: 100,
-        boardColor: '#fff',
         foodX: 150,
-        foodY: 150,
-        foodColor: '#000'
+        foodY: 150
     }
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.start = this.start.bind(this);
+    this.generateFood = this.generateFood.bind(this);
+  }
+
+  generateFood() {
+    const foodX = Math.floor(Math.random() * game.board.stageWidth );
+    const foodY = Math.floor(Math.random() * game.board.stageHeight );
+    this.setState({
+        foodX: foodX,
+        foodY: foodY,
+    })
+    /* this.props.toggleFood() */
   }
 
   handleKeyPress(event) {
@@ -41,10 +50,9 @@ export class Game extends Component {
   }
 
   start() {
-    const loop = () => this.loop = setInterval(() => {
+    const loop = () => setInterval(() => {
         this.refs.snake.update();
         this.refs.snake.draw();
-        loop();
       }, this.state.fps)
     loop();
   }
@@ -53,27 +61,27 @@ export class Game extends Component {
     window.addEventListener("keydown", this.handleKeyPress);
   }
   render() {
+    /* 
+        this.props.isThereFood && this.generateFood()
+    */
     return (
-      <Stage width={this.state.stageWidth} height={this.state.stageHeight}>
+      <Stage width={game.board.stageWidth} height={game.board.stageHeight}>
         <Layer>
             <Rect /* this is the background color of the mainboard */
                 x={0}
                 y={0}
-                width={this.state.stageWidth}
-                height={this.state.stageHeight}
-                fill={this.state.boardColor}
+                width={game.board.stageWidth}
+                height={game.board.stageHeight}
+                fill={game.colors.board}
             />
         </Layer>
         <Layer>
           <Snake />
         </Layer>
         <Layer> 
-            <Rect /* this is the food */
-                x={this.state.foodX}
-                y={this.state.foodY}
-                width={this.state.foodSize}
-                height={this.state.foodSize}
-                fill={this.state.foodColor}
+            <Food /* this is the food */
+                foodX={this.state.foodX}
+                foodY={this.state.foodY}
             />
         </Layer>
       </Stage>
