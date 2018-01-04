@@ -1,7 +1,7 @@
 {
     "colors": {
-      "board": "#fff",
-      "food": "#000",
+      "board": "#000",
+      "food": "#fff",
       "snakeBody": "#C02",
       "snakeHead": "#E00"
     },

@@ -9,8 +9,8 @@ export default class Game extends Component {
     super(props);
     this.state = {
         fps: 100,
-        foodX: 150,
-        foodY: 150
+        foodX: 15,
+        foodY: 15
     }
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.start = this.start.bind(this);
@@ -18,8 +18,8 @@ export default class Game extends Component {
   }
 
   generateFood() {
-    const foodX = Math.floor(Math.random() * game.board.stageWidth );
-    const foodY = Math.floor(Math.random() * game.board.stageHeight );
+    const foodX = Math.floor((Math.random() * game.board.stageWidth + 10) / 10 );
+    const foodY = Math.floor((Math.random() * game.board.stageHeight + 10) / 10 );
     this.setState({
         foodX: foodX,
         foodY: foodY,
@@ -50,6 +50,7 @@ export default class Game extends Component {
   }
 
   start() {
+    
     const loop = () => setInterval(() => {
         this.refs.snake.update();
         this.refs.snake.draw();
@@ -77,8 +78,8 @@ export default class Game extends Component {
         </Layer>
         <Layer> 
             <Food /* this is the food */
-                foodX={this.state.foodX}
-                foodY={this.state.foodY}
+                foodX={this.state.foodX }
+                foodY={this.state.foodY }
             />
         </Layer>
       </Stage>
