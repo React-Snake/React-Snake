@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Stage, Layer, Rect, Text } from 'react-konva';
 import game from '../game.json';
 
-export class Food extends Component {
+export default class Food extends Component {
   constructor(props) {
     super(props);
   }

@@ -4,7 +4,7 @@ import { Stage, Layer, Rect, Text } from 'react-konva';
 import game from '../game.json';
 import Food from './Food.js';
 
-export class Game extends Component {
+export default class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,7 +39,7 @@ export class Game extends Component {
             /* placeholder for direction change */
             break;
         case 'ArrowRight':
-            /* placeholder for direction change */
+            this.generateFood();
             break;
         case 'Space':
             this.start();
@@ -74,9 +74,6 @@ export class Game extends Component {
                 height={game.board.stageHeight}
                 fill={game.colors.board}
             />
-        </Layer>
-        <Layer>
-          <Snake />
         </Layer>
         <Layer> 
             <Food /* this is the food */
