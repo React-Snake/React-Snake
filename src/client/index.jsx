@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Stage, Layer, React, Text } from 'react-konva';
+import { Stage, Layer, Text } from 'react-konva';
 
 
 class ColoredRect extends Component {
