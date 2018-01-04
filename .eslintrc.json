@@ -1,0 +1,53 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true
+  },
+  "plugins": [
+    "import",
+    "destructuring"
+  ],
+  "extends": ["plugin:destructuring/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "consistent-return": 0,
+  "rules": {
+    "arrow-spacing": 1,
+    "keyword-spacing": 1,
+    "space-before-blocks": 1,
+    "no-param-reassign": 0,
+    "max-len": 0,
+    "no-plusplus": 0,
+    "linebreak-style": 0,
+    "consistent-return": 1,
+    "no-useless-return": 1,
+    "no-return-assign": 1,
+    "comma-dangle": 1,
+    "arrow-body-style": 0,
+    "no-unused-vars": 0,
+    "no-useless-constructor": 1,
+    "no-extend-native": 1,
+    "import/no-unresolved": 0,
+    "no-restricted-properties": 1,
+    "no-console": 0,
+    "import/no-duplicates": 1,
+    "indent": [
+      "error",
+       2
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ]
+  }
+}
