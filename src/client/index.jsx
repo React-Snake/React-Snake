@@ -1,6 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
-import './styles/index.css';
+import { Game } from './components';
+import reducers from './reducers';
 
-render(<div><p>Hello World</p></div>, document.getElementById('root'));
+import game from './game.json';
+
+const store = createStore(reducers, game.defaults);
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        <Game />
+      </Provider>
+    );
+  }
+}
+
+render(<App />, document.getElementById('root'));

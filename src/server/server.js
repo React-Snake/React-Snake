@@ -15,7 +15,7 @@ const asyncMiddleware = cb =>
 
 const app = express();
 app.use(bodyParser.json());
-app.use(express.static('/src/public', {
+app.use(express.static('./src/public', {
   index: false
 }));
 

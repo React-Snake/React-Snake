@@ -1,0 +1,34 @@
+{
+  "colors": {
+    "board": "#000",
+    "food": "#fff",
+    "snakeBody": "#C02",
+    "snakeHead": "#E00"
+  },
+  "board": {
+    "stageWidth": 300,
+    "stageHeight": 300,
+    "tileSize": 10,
+    "startLocation": [1, 1]
+  },
+  "defaults" : {
+    "direction": "right",
+    "foodNeeded": true,
+    "board": null,
+    "score": 0,
+    "isGameOver": false
+  },
+  "text": {
+    "mainMenu": {
+      "title": "<Snake/>",
+      "topScore:": "Top Score:",
+      "playButton": "Play"
+    },
+    "game": {
+      "score": "Score:",
+      "gameOver": "Game Over",
+      "restart": "Restart",
+      "exit": "Main Menu"
+    }
+  }
+}
