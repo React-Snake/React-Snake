@@ -3,12 +3,14 @@ import { render } from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import { Game } from './components';
+import { Game, Board } from './components';
 import reducers from './reducers';
 
 import game from './game.json';
 
-const store = createStore(reducers, game.defaults);
+const store = createStore(reducers, Object.assign({}, game.defaults, {
+  board: new Board(game.board.stageWidth / game.board.tileSize, game.board.stageHeight / game.board.tileSize)
+}));
 
 class App extends Component {
   constructor(props) {

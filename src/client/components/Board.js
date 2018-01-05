@@ -1,4 +1,4 @@
-class Board {
+export default class Board {
   static get types() {
     return {
       food: 'food',

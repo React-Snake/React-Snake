@@ -4,7 +4,7 @@ import Game from './Game';
 import Node from './Node';
 import Snake from './Snake';
 
-export default {
+export {
   Board,
   Food,
   Game,

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import actions from '../actions';
+import * as actions from '../actions';
 
 import Board from './Board';
+import Node from './Node';
 
 class Snake extends Component {
   constructor(props) {
@@ -14,6 +15,8 @@ class Snake extends Component {
   }
 
   componentWillMount() {
+    console.log('props');
+    console.log(this.props)
     this.location = this.props.location;
     this.board.put(this.location, Board.types.snake);
   }
@@ -37,11 +40,13 @@ class Snake extends Component {
   }
 
   get location() {
+    if (this.state === null)
+      return this.props.location;
     return this.state.location === undefined ? this.props.location : this.state.location;
   }
 
   get head() {
-    return this.refs.head;
+    return this.refs.head.getWrappedInstance();
   }
 
   get tail() {
@@ -150,8 +155,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispachToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(actions, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispachToProps)(Snake);
+export default connect(mapStateToProps, mapDispatchToProps, null, { withRef: true })(Snake);

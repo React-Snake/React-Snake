@@ -6,7 +6,7 @@ import { Stage, Layer, Rect, Text } from 'react-konva';
 import Board from './Board';
 import Food from './Food';
 import Snake from './Snake';
-import actions from '../actions';
+import * as actions from '../actions';
 
 import game from '../game.json';
 
@@ -20,16 +20,23 @@ class Game extends Component {
 
   componentWillMount() {
     this.setState({
-      fps: 100,
+      fps: 1000 / 2,
       foodX: 15,
       foodY: 15
     });
-    this.props.setBoard(new Board(game.board.stageWidth, game.board.stageHeight));
   }
 
   componentWillUnmount() {
     clearTimeout(this.loop);
     window.removeEventListener("keydown", this.handleKeyPress);
+  }
+
+  get snake() {
+    return this.refs.snake.getWrappedInstance();
+  }
+
+  set snake(_) {
+    return;
   }
 
   generateFood() {
@@ -64,7 +71,7 @@ class Game extends Component {
         break;
       case 'Enter':
       case 'Space':
-        this.start();
+        //this.start();
         break;
       default:
         break;
@@ -73,20 +80,22 @@ class Game extends Component {
 
   start() {
     const loop = () => !this.props.isGameOver ? this.loop = setInterval(() => {
-        this.refs.snake.update();
-        this.refs.snake.draw();
+        this.snake.update();
+        this.snake.draw();
         loop();
-      }, this.state.fps) : undefined;
-    loop();
+      }, this.state.fps) : console.log('Game Over');
+    if (!this.loop)
+      loop();
   }
 
   componentDidMount() {
     window.addEventListener("keydown", this.handleKeyPress);
+    // random food color? Konva.Util.getRandomColor()
+    this.generateFood();
+    this.start();
   }
 
   render() {
-    // random food color? Konva.Util.getRandomColor()
-    this.generateFood();
     return (
       <Stage width={game.board.stageWidth} height={game.board.stageHeight}>
         <Layer>
@@ -105,7 +114,7 @@ class Game extends Component {
           />
         </Layer>
         <Layer>
-          <Snake location={game.board.startLocation} />
+          <Snake ref="snake" location={game.board.startLocation} />
         </Layer>
       </Stage>
     );
@@ -122,8 +131,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispachToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(actions, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispachToProps)(Game);
+export default connect(mapStateToProps, mapDispatchToProps, null, { withRef: true })(Game);

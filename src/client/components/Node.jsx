@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Stage, Layer, Rect, Text } from 'react-konva';
-import actions from '../actions';
+import * as actions from '../actions';
 
+import Board from './Board';
 import game from '../game.json';
 
 class Node extends Component {
@@ -37,7 +38,7 @@ class Node extends Component {
   }
 
   get isHead() {
-    this.parent === undefined;
+    return this.parent === undefined;
   }
 
   get isTail() {
@@ -45,6 +46,8 @@ class Node extends Component {
   }
 
   get location() {
+    if (this.state === null)
+      return this.props.location;
     return this.state.location === undefined ? this.props.location : this.state.location;
   }
 
@@ -80,7 +83,7 @@ class Node extends Component {
   }
 
   get previousLocation() {
-    let location = this.state.previousLocation;
+    let location = this.state === null ? undefined : this.state.previousLocation;
     if (location === undefined) {
       const [x, y] = this.location;
       switch (this.props.direction) {
@@ -210,6 +213,10 @@ class Node extends Component {
       this.child.addNode();
   }
 
+  delete() {
+    return;
+  }
+
   draw() {
     if (!this.isTail)
       this.child.draw();
@@ -264,8 +271,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispachToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(actions, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispachToProps)(Node);
+export default connect(mapStateToProps, mapDispatchToProps, null, { withRef: true })(Node);
