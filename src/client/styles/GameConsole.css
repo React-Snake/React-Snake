@@ -55,6 +55,17 @@
   outline: none;
 }
 
+.game-console > .button-panel > .dpad button {
+  width: 3rem;
+  height: 3rem;
+}
+
+.game-console > .button-panel > .start button {
+  width: 4rem;
+  height: 3rem;
+  font-size: 1rem;
+}
+
 .game-console > .button-panel > .dpad > div > button {
   font-weight: 600;
   font-size: 1.3rem;

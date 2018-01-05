@@ -28,7 +28,7 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener("startButtonClicked", this.start);
+    window.addEventListener("consoleButtonClicked", this.handleKeyPress);
     // random food color? Konva.Util.getRandomColor()
     this.generateFood();
     this.props.setTopText(`Score: ${0}`);
@@ -37,7 +37,8 @@ class Game extends Component {
   componentWillUnmount() {
     clearInterval(this.state.loop);
     this.setState({ loop: null });
-    window.removeEventListener("startButtonClicked", this.start);
+    // window.removeEventListener("startButtonClicked", this.start);
+    window.removeEventListener("consoleButtonClicked", this.handleKeyPress);
     this.props.setBoard(new Board(game.board.stageWidth / game.board.tileSize, game.board.stageHeight / game.board.tileSize));
     this.props.setScore(game.defaults.score);
     this.props.setFoodNeeded(game.defaults.foodNeeded);
@@ -69,26 +70,33 @@ class Game extends Component {
   }
 
   handleKeyPress(event) {
+    event = event.detail;
     switch (event.key) {
       case 'w':
       case 'ArrowUp':
-        this.props.setDirection('up');
+        if (this.state.loop)
+          this.props.setDirection('up');
         break;
       case 's':
       case 'ArrowDown':
-        this.props.setDirection('down');
+        if (this.state.loop)
+          this.props.setDirection('down');
         break;
       case 'a':
       case 'ArrowLeft':
-        this.props.setDirection('left');
+        if (this.state.loop)
+          this.props.setDirection('left');
         break;
       case 'd':
       case 'ArrowRight':
-        this.props.setDirection('right');
+        if (this.state.loop)
+          this.props.setDirection('right');
         break;
+      case 'Start':
       case 'Enter':
       case ' ':
-        this.start();
+        if (!this.state.loop)
+          this.start();
         break;
       default:
         break;
@@ -116,7 +124,10 @@ class Game extends Component {
 
   render() {
     return (
-      <Stage width={game.board.stageWidth} height={game.board.stageHeight}>
+      <Stage width={game.board.stageWidth} height={game.board.stageHeight}
+        onClick={this.start}
+        onTouchStart={this.start}
+      >
         <Layer>
           <Rect /* this is the background color of the mainboard */
             x={0}
@@ -138,7 +149,7 @@ class Game extends Component {
         {!this.state.loop &&
           <Layer>
             <Text
-              text="Press Space to start!"
+              text="Press Start!"
               y={game.board.stageHeight / 2}
               width={game.board.stageWidth}
               align="center"

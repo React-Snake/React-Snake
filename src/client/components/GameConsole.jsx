@@ -15,6 +15,7 @@ class GameConsole extends Component {
   constructor(props) {
     super(props);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.dispatchEvent = this.dispatchEvent.bind(this);
   }
 
   componentDidMount() {
@@ -25,34 +26,38 @@ class GameConsole extends Component {
     window.removeEventListener("keydown", this.handleKeyPress);
   }
 
-  dispatchEvent(event) {
-    const newEvent = new CustomEvent("startButtonClicked", {...event});
+  dispatchEvent(name, event) {
+    const newEvent = new CustomEvent(name, {detail: event});
     window.dispatchEvent(newEvent);
   }
 
   handleKeyPress(event) {
-    if (event.preventDefault)
-      event.preventDefault();
     switch (event.key) {
       case 'w':
       case 'ArrowUp':
-        this.props.setDirection('up');
+        // this.props.setDirection('up');
+        this.dispatchEvent("consoleButtonClicked", event);
         break;
       case 's':
       case 'ArrowDown':
-        this.props.setDirection('down');
+        // this.props.setDirection('down');
+        this.dispatchEvent("consoleButtonClicked", event);
         break;
       case 'a':
       case 'ArrowLeft':
-        this.props.setDirection('left');
+        // this.props.setDirection('left');
+        this.dispatchEvent("consoleButtonClicked", event);
         break;
       case 'd':
       case 'ArrowRight':
-        this.props.setDirection('right');
+        // this.props.setDirection('right');
+        this.dispatchEvent("consoleButtonClicked", event);
         break;
+      case 'Start':
       case 'Enter':
       case ' ':
-        this.dispatchEvent(event);
+        this.dispatchEvent("startButtonClicked", event);
+        this.dispatchEvent("consoleButtonClicked", event);
         break;
       default:
         break;
@@ -70,7 +75,7 @@ class GameConsole extends Component {
             <div className="dpad-row1">
               <button className="up-button" ref ="up"
                 onMouseDown={(event) => {
-                  this.handleKeyPress({key: 'ArrowUp'});
+                  this.handleKeyPress(Object.assign({}, event, {key: 'ArrowUp'}));
                   event.target.blur();
                 }}
               >{'⇧'}</button>
@@ -79,14 +84,14 @@ class GameConsole extends Component {
               <button className="left-button"
                 ref="left"
                 onMouseDown={(event) => {
-                  this.handleKeyPress({key: 'ArrowLeft'});
+                  this.handleKeyPress(Object.assign({}, event, {key: 'ArrowLeft'}));
                   event.target.blur();
                 }}
               >{'⇦'}</button>
               <button className="right-button"
                 ref ="right"
                 onMouseDown={(event) => {
-                  this.handleKeyPress({key: 'ArrowRight'});
+                  this.handleKeyPress(Object.assign({}, event, {key: 'ArrowRight'}));
                   event.target.blur();
                 }}
               >{'⇨'}</button>
@@ -95,7 +100,7 @@ class GameConsole extends Component {
               <button className="down-button"
                 ref="down"
                 onMouseDown={(event) => {
-                  this.handleKeyPress({key: 'ArrowDown'});
+                  this.handleKeyPress(Object.assign({}, event, {key: 'ArrowDown'}));
                   event.target.blur();
                 }}
               >{'⇩'}</button>
@@ -105,7 +110,7 @@ class GameConsole extends Component {
             <button className="start-button"
               ref="start"
               onMouseDown={(event) => {
-                this.dispatchEvent(event);
+                this.handleKeyPress(Object.assign({}, event, {key: 'Start'}));
                 event.target.blur();
               }}
             >Start</button>

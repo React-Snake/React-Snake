@@ -79,6 +79,7 @@ class MainMenu extends Component {
               y={~~(game.mainMenu.height * 0.5)}
               fill={game.colors.mainMenuText}
               onClick={() => this.changeStage('game')}
+              onTouchStart={() => this.changeStage('game')}
             />
           </Group>
         </Layer>
