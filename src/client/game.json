@@ -1,26 +1,53 @@
 {
-    "colors": {
-      "board": "#000",
-      "food": "#fff",
-      "snakeBody": "#C02",
-      "snakeHead": "#E00"
+  "colors": {
+    "board": "#000",
+    "window": "#000",
+    "topWindow": "green",
+    "food": "#fff",
+    "snakeBody": "#C02",
+    "snakeHead": "#E00",
+    "mainMenu": "#000",
+    "mainMenuText": "#fff",
+    "playButton": "blue"
+  },
+  "window": {
+    "height": 300,
+    "width": 300,
+    "topHeight": 40
+  },
+  "mainMenu": {
+    "height": 300,
+    "width": 300,
+    "titleSize": 30,
+    "topScoreSize": 15,
+    "playSize": 35
+  },
+  "board": {
+    "stageWidth": 300,
+    "stageHeight": 300,
+    "tileSize": 10,
+    "startLocation": [1, 1]
+  },
+  "defaults" : {
+    "direction": "right",
+    "foodNeeded": true,
+    "board": null,
+    "score": 0,
+    "isGameOver": false,
+    "stage": "main_menu",
+    "topText": "<Snake/>"
+  },
+  "text": {
+    "mainMenu": {
+      "title": "<Snake/>",
+      "topScore": "Top Score:",
+      "playButton": "Play"
     },
-    "board": {
-      "stageWidth": 300,
-      "stageHeight": 300,
-      "tileSize": 10
-    },
-    "text": {
-      "mainMenu": {
-        "title": "<Snake/>",
-        "topScore:": "Top Score:",
-        "playButton": "Play"
-      },
-      "game": {
-        "score": "Score:",
-        "gameOver": "Game Over",
-        "restart": "Restart",
-        "exit": "Main Menu"
-      }
+    "game": {
+      "score": "Score:",
+      "gameOver": "Game Over",
+      "restart": "Restart",
+      "exit": "Main Menu"
     }
   }
+}
