@@ -9,7 +9,6 @@ import Node from './Node';
 class Snake extends Component {
   constructor(props) {
     super(props);
-    this.draw = this.draw.bind(this);
     this.update = this.update.bind(this);
   }
 
@@ -119,10 +118,6 @@ class Snake extends Component {
 
   set y(value) {
     this.head.y = value;
-  }
-
-  draw() {
-    this.head.draw();
   }
 
   update() {

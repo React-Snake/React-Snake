@@ -20,15 +20,29 @@ class Game extends Component {
 
   componentWillMount() {
     this.setState({
-      fps: 1000 / 3,
+      fps: 1000 / 10,
       foodX: 15,
-      foodY: 15
+      foodY: 15,
+      loop: null
     });
   }
 
+  componentDidMount() {
+    window.addEventListener("keydown", this.handleKeyPress);
+    // random food color? Konva.Util.getRandomColor()
+    this.generateFood();
+    this.props.setTopText(`Score: ${0}`);
+  }
+
   componentWillUnmount() {
-    clearInterval(this.loop);
+    clearInterval(this.state.loop);
+    this.setState({ loop: null });
     window.removeEventListener("keydown", this.handleKeyPress);
+    this.props.setBoard(new Board(game.board.stageWidth / game.board.tileSize, game.board.stageHeight / game.board.tileSize));
+    this.props.setScore(game.defaults.score);
+    this.props.setFoodNeeded(game.defaults.foodNeeded);
+    this.props.gameOver(game.defaults.isGameOver);
+    this.props.setDirection(game.defaults.direction);
   }
 
   get snake() {
@@ -73,8 +87,8 @@ class Game extends Component {
         this.props.setDirection('right');
         break;
       case 'Enter':
-      case 'Space':
-        //this.start();
+      case ' ':
+        this.start();
         break;
       default:
         break;
@@ -83,27 +97,21 @@ class Game extends Component {
 
   start() {
     const loop = () => {
-      if (!this.loop) {
-        this.loop = setInterval(() => {
-          if (!this.props.isGameOver) {
-            this.snake.update();
-            this.snake.draw();
-            this.generateFood();
-          } else {
-            console.log('Game Over');
-            clearInterval(this.loop);
-          }
-        }, this.state.fps);
+      if (!this.state.loop) {
+        this.setState({ loop: setInterval(() => {
+            if (!this.props.isGameOver) {
+              this.snake.update();
+              this.generateFood();
+            } else {
+              clearInterval(this.state.loop);
+              this.props.setTopScore(this.props.score);
+              this.props.setStage('main_menu');
+            }
+          }, this.state.fps)
+        });
       }
-    }
+    };
     loop();
-  }
-
-  componentDidMount() {
-    window.addEventListener("keydown", this.handleKeyPress);
-    // random food color? Konva.Util.getRandomColor()
-    this.generateFood();
-    this.start();
   }
 
   render() {
@@ -127,6 +135,19 @@ class Game extends Component {
         <Layer>
           <Snake ref="snake" location={game.board.startLocation} />
         </Layer>
+        {!this.state.loop &&
+          <Layer>
+            <Text
+              text="Press Space to start!"
+              y={game.board.stageHeight / 2}
+              width={game.board.stageWidth}
+              align="center"
+              fontSize={30}
+              fontFamily="Calibri"
+              fill="white"
+            />
+          </Layer>
+        }
       </Stage>
     );
   }
@@ -138,7 +159,9 @@ const mapStateToProps = (state) => {
     foodNeeded: state.foodNeeded,
     board: state.board,
     score: state.score,
-    isGameOver: state.isGameOver
+    isGameOver: state.isGameOver,
+    topText: state.topText,
+    topScore: state.topScore
   };
 };
 

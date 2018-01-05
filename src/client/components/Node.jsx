@@ -12,7 +12,6 @@ class Node extends Component {
     super(props);
     this.addNode = this.addNode.bind(this);
     this.delete = this.delete.bind(this);
-    this.draw = this.draw.bind(this);
     this.update = this.update.bind(this);
     this.eatFood = this.eatFood.bind(this);
   }
@@ -43,7 +42,6 @@ class Node extends Component {
       children.push(child);
       child = child.child;
     }
-    console.log(children.length);
     return children;
   }
 
@@ -225,15 +223,11 @@ class Node extends Component {
     return;
   }
 
-  draw() {
-    if (!this.isTail)
-      this.child.draw();
-  }
-
   eatFood() {
     this.addNode();
     this.props.setScore(this.props.score + 1);
     this.props.setFoodNeeded(true);
+    this.props.setTopText(`Score: ${this.props.score}`);
   }
 
   update() {
