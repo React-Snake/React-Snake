@@ -104,6 +104,9 @@ class Game extends Component {
             foodY={this.state.foodY}
           />
         </Layer>
+        <Layer>
+          <Snake location={game.board.startLocation} />
+        </Layer>
       </Stage>
     );
   }
@@ -123,4 +126,4 @@ const mapDispachToProps = (dispatch) => {
   return bindActionCreators(actions, dispatch);
 };
 
-export default connect(mapStateToProps)(Game);
+export default connect(mapStateToProps, mapDispachToProps)(Game);

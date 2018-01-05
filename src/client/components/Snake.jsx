@@ -154,4 +154,4 @@ const mapDispachToProps = (dispatch) => {
   return bindActionCreators(actions, dispatch);
 };
 
-export default connect(mapStateToProps)(Snake);
+export default connect(mapStateToProps, mapDispachToProps)(Snake);

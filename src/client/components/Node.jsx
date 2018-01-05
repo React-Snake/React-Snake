@@ -268,4 +268,4 @@ const mapDispachToProps = (dispatch) => {
   return bindActionCreators(actions, dispatch);
 };
 
-export default connect(mapStateToProps)(Node);
+export default connect(mapStateToProps, mapDispachToProps)(Node);
