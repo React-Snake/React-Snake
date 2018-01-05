@@ -1,4 +1,4 @@
-# <Snake/>
+# \<Snake/>
 
 This is a classic game of Snake made using React!
 It uses [React Konva](https://github.com/lavrton/react-konva) to easily interact with Canvas elements.
