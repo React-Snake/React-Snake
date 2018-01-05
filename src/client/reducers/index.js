@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import boardReducer from './board.js';
-import directionReducer from './direction';
-import gameOverReducer from './board.js';
-import scoreReducer from './direction';
+import directionReducer from './direction.js';
+import gameOverReducer from './isGameOver.js';
+import scoreReducer from './score.js';
 
 const rootReducer = combineReducers({
   score: scoreReducer,
