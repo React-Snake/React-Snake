@@ -20,14 +20,14 @@ class Game extends Component {
 
   componentWillMount() {
     this.setState({
-      fps: 1000 / 2,
+      fps: 1000 / 3,
       foodX: 15,
       foodY: 15
     });
   }
 
   componentWillUnmount() {
-    clearTimeout(this.loop);
+    clearInterval(this.loop);
     window.removeEventListener("keydown", this.handleKeyPress);
   }
 
@@ -43,6 +43,9 @@ class Game extends Component {
     if (this.props.foodNeeded) {
       const foodX = Math.floor((Math.random() * game.board.stageWidth + 10) / 10 );
       const foodY = Math.floor((Math.random() * game.board.stageHeight + 10) / 10 );
+      if (this.props.board.get([foodX, foodY]) !== Board.types.empty)
+        return this.generateFood();
+      this.props.board.put([foodX, foodY], Board.types.food);
       this.setState({
         foodX: foodX,
         foodY: foodY,
@@ -79,13 +82,21 @@ class Game extends Component {
   }
 
   start() {
-    const loop = () => !this.props.isGameOver ? this.loop = setInterval(() => {
-        this.snake.update();
-        this.snake.draw();
-        loop();
-      }, this.state.fps) : console.log('Game Over');
-    if (!this.loop)
-      loop();
+    const loop = () => {
+      if (!this.loop) {
+        this.loop = setInterval(() => {
+          if (!this.props.isGameOver) {
+            this.snake.update();
+            this.snake.draw();
+            this.generateFood();
+          } else {
+            console.log('Game Over');
+            clearInterval(this.loop);
+          }
+        }, this.state.fps);
+      }
+    }
+    loop();
   }
 
   componentDidMount() {

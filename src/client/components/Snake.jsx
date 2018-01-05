@@ -9,14 +9,11 @@ import Node from './Node';
 class Snake extends Component {
   constructor(props) {
     super(props);
-    this.eatFood = this.eatFood.bind(this);
     this.draw = this.draw.bind(this);
     this.update = this.update.bind(this);
   }
 
   componentWillMount() {
-    console.log('props');
-    console.log(this.props)
     this.location = this.props.location;
     this.board.put(this.location, Board.types.snake);
   }
@@ -122,12 +119,6 @@ class Snake extends Component {
 
   set y(value) {
     this.head.y = value;
-  }
-
-  eatFood() {
-    this.head.addNode();
-    this.props.setScore(this.props.score + 1);
-    this.props.setFoodNeeded(true);
   }
 
   draw() {

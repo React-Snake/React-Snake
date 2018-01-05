@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Stage, Layer, Rect, Text } from 'react-konva';
+import { Stage, Group, Rect, Text } from 'react-konva';
 import * as actions from '../actions';
 
 import Board from './Board';
@@ -14,14 +14,15 @@ class Node extends Component {
     this.delete = this.delete.bind(this);
     this.draw = this.draw.bind(this);
     this.update = this.update.bind(this);
+    this.eatFood = this.eatFood.bind(this);
   }
 
   componentWillMount() {
     this.setState({
       previousLocation: this.previousLocation,
       location: this.props.location,
-      child: this.props.child,
-      parent: this.props.parent
+      parent: this.props.parent,
+      foodEaten: false
     });
   }
 
@@ -30,7 +31,20 @@ class Node extends Component {
   }
 
   get child() {
-    return this.state.child || undefined;
+    if (this.refs.child)
+      return this.refs.child.getWrappedInstance();
+    return undefined;
+  }
+
+  get children() {
+    const children = [];
+    let child = this.child;
+    while(child !== undefined) {
+      children.push(child);
+      child = child.child;
+    }
+    console.log(children.length);
+    return children;
   }
 
   get direction() {
@@ -120,17 +134,16 @@ class Node extends Component {
     return this.props.board;
   }
 
-  set child(value) {
-    if (!(value instanceof Node)) {
-      const error = new Error(`Expected child to be a Node Object! Received: '${value}'`);
-      error.name = 'SnakeNodeError';
-      throw error;
-    }
-    this.state.child = value;
+  set child(_) {
+    return;
+  }
+
+  set children(_) {
+    return;
   }
 
   set direction(_) {
-    return this.props.direction;
+    return;
   }
 
   set isHead(_) {
@@ -162,11 +175,6 @@ class Node extends Component {
   }
 
   set parent(value) {
-    if (!(value instanceof Node)) {
-      const error = new Error(`Expected parent to be a Node Object! Received: '${value}'`);
-      error.name = 'SnakeNodeError';
-      throw error;
-    }
     this.state.parent = value;
   }
 
@@ -208,7 +216,7 @@ class Node extends Component {
 
   addNode() {
     if (this.isTail)
-      this.child = <Node location={this.previousLocation} parent={this} />
+      this.setState({ foodEaten: true });
     else
       this.child.addNode();
   }
@@ -222,6 +230,12 @@ class Node extends Component {
       this.child.draw();
   }
 
+  eatFood() {
+    this.addNode();
+    this.props.setScore(this.props.score + 1);
+    this.props.setFoodNeeded(true);
+  }
+
   update() {
     if (this.isHead) {
       switch (this.board.get(this.nextLocation)) {
@@ -232,14 +246,15 @@ class Node extends Component {
           break;
         case Board.types.snake:
         case Board.types.border:
-          this.props.gameOver();
+          this.props.gameOver(true);
           break;
         default:
           const error = new Error(`Unknown cell type '${this.board.get(this.nextLocation)}'`);
           error.name = 'SnakeError';
           throw error;
       }
-    } else if (this.isTail) {
+    }
+    if (this.isTail) {
       this.board.put(this.location, Board.types.empty);
     }
     this.previousLocation = this.location;
@@ -250,13 +265,18 @@ class Node extends Component {
 
   render() {
     return (
-      <Rect
-        x={this.x * game.board.tileSize}
-        y={this.y * game.board.tileSize}
-        width={game.board.tileSize}
-        height={game.board.tileSize}
-        fill={this.isHead ? game.colors.snakeHead : game.colors.snakeBody}
-      />
+      <Group>
+        <Rect
+          x={this.x * game.board.tileSize}
+          y={this.y * game.board.tileSize}
+          width={game.board.tileSize}
+          height={game.board.tileSize}
+          fill={this.isHead ? game.colors.snakeHead : game.colors.snakeBody}
+        />
+        {this.state.foodEaten &&
+          <ConnectedNode location={this.previousLocation} parent={this} ref="child" />
+        }
+      </Group>
     );
   }
 }
@@ -275,4 +295,6 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(actions, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps, null, { withRef: true })(Node);
+const ConnectedNode = connect(mapStateToProps, mapDispatchToProps, null, { withRef: true })(Node);
+
+export default ConnectedNode

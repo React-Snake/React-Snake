@@ -28,6 +28,8 @@ export default class Board {
     this.board = new Array(width);
     for (let i = 0; i < width; i++)
       this.board[i] = new Array(height);
+    this.width = width;
+    this.height = height;
   }
 
   /* board
@@ -75,8 +77,13 @@ export default class Board {
   get([x, y]) {
     const width = this.width - 1;
     const height = this.height - 1;
-    if (x < width || x > width || y < height || y > height)
+    if (x <= 0 || x >= width || y <= 0 || y >= height)
       return Board.types.border;
+    try {
+      this.board[x][y]
+    } catch (error) {
+      throw new Error();
+    }
     return this.board[x][y] || Board.types.empty;
   }
 
