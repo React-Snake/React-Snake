@@ -1,14 +1,15 @@
 {
   "colors": {
     "board": "#000",
+    "borderColor": "grey",
     "window": "#000",
-    "topWindow": "green",
-    "food": "#fff",
-    "snakeBody": "#C02",
-    "snakeHead": "#E00",
+    "topWindow": "#366",
+    "food": "#E11",
+    "snakeBody": "#0B1",
+    "snakeHead": "#0C9",
     "mainMenu": "#000",
     "mainMenuText": "#fff",
-    "playButton": "blue"
+    "playButton": "#18A"
   },
   "window": {
     "height": 300,
@@ -25,6 +26,7 @@
   "board": {
     "stageWidth": 300,
     "stageHeight": 300,
+    "borderWidth": 10,
     "tileSize": 10,
     "startLocation": [1, 1]
   },

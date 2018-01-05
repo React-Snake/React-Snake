@@ -135,6 +135,8 @@ class Game extends Component {
             width={game.board.stageWidth}
             height={game.board.stageHeight}
             fill={game.colors.board}
+            stroke={game.colors.borderColor}
+            strokeWidth={game.board.borderWidth}
           />
         </Layer>
         <Layer>
