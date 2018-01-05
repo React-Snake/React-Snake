@@ -14,14 +14,3 @@
   margin: 0;
   padding: 0;
 }
-
-.game {
-  flex: 0;
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
-}

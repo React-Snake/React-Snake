@@ -1,0 +1,76 @@
+.game-console {
+  flex: 0;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: .5rem .5rem 0 .5rem;
+  background: rgb(235, 234, 239);
+  border: 1px solid rgb(112, 112, 112);
+  border-radius: 5px 5px;
+}
+
+.game-console > .window {
+  border: 1px solid black;
+}
+
+.game-console > .button-panel {
+  position: relative;
+  display: table;
+  width: 100%;
+  margin-bottom: 3rem;
+  border-spacing: 2px
+}
+
+.game-console > .button-panel > .dpad {
+  display: inline-block;
+  float: left;
+  margin: 2rem 0 0 2rem;
+}
+
+.game-console > .button-panel > .dpad > .dpad-row1 {
+  display: table-row;
+}
+
+.game-console > .button-panel > .dpad > .dpad-row2 {
+  display: table-row;
+}
+
+.game-console > .button-panel > .dpad > .dpad-row2 > .left-button {
+  margin-right: 1px;
+}
+
+.game-console > .button-panel > .dpad > .dpad-row2 > .right-button {
+  margin-left: 1px;
+}
+
+.game-console > .button-panel > .dpad > .dpad-row3 {
+  display: table-row;
+}
+
+.game-console > .button-panel button {
+  outline: none;
+}
+
+.game-console > .button-panel > .dpad > div > button {
+  font-weight: 600;
+  font-size: 1.3rem;
+  background-color: rgb(191, 191, 191);
+  border-color: rgb(122, 122, 122);
+}
+
+.game-console > .button-panel > .start {
+  position: relative;
+  margin: 6rem 0 0 0;
+  pointer-events: none;
+}
+
+.game-console > .button-panel > .start > .start-button {
+  background-color: rgb(191, 191, 191);
+  border-color: rgb(122, 122, 122);
+  font-weight: 600;
+  pointer-events: all;
+}

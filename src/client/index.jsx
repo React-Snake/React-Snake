@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import { GameWindow, Board } from './components';
+import { GameConsole, Board } from './components';
 import reducers from './reducers';
 
 import game from './game.json';
@@ -24,7 +24,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className="app">
-          <GameWindow />
+          <GameConsole />
         </div>
       </Provider>
     );

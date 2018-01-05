@@ -28,7 +28,7 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener("keydown", this.handleKeyPress);
+    window.addEventListener("startButtonClicked", this.start);
     // random food color? Konva.Util.getRandomColor()
     this.generateFood();
     this.props.setTopText(`Score: ${0}`);
@@ -37,7 +37,7 @@ class Game extends Component {
   componentWillUnmount() {
     clearInterval(this.state.loop);
     this.setState({ loop: null });
-    window.removeEventListener("keydown", this.handleKeyPress);
+    window.removeEventListener("startButtonClicked", this.start);
     this.props.setBoard(new Board(game.board.stageWidth / game.board.tileSize, game.board.stageHeight / game.board.tileSize));
     this.props.setScore(game.defaults.score);
     this.props.setFoodNeeded(game.defaults.foodNeeded);

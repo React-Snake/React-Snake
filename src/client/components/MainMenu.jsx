@@ -10,10 +10,20 @@ import game from '../game.json';
 class MainMenu extends Component {
   constructor(props) {
     super(props);
+    this.changeStage = this.changeStage.bind(this);
   }
 
   componentDidMount() {
     this.props.setTopText('Press Play to start the game!');
+    window.addEventListener("startButtonClicked", () => this.changeStage('game'));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("startButtonClicked", () => this.changeStage('game'));
+  }
+
+  changeStage(stage) {
+    this.props.setStage(stage);
   }
 
   render() {
@@ -68,7 +78,7 @@ class MainMenu extends Component {
               padding={10}
               y={~~(game.mainMenu.height * 0.5)}
               fill={game.colors.mainMenuText}
-              onClick={() => this.props.setStage('game')}
+              onClick={() => this.changeStage('game')}
             />
           </Group>
         </Layer>
