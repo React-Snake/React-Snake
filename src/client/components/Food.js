@@ -13,8 +13,8 @@ export default class Food extends Component {
   render() {
     return (
         <Rect 
-            x={this.props.foodX * 10 - 10}
-            y={this.props.foodY * 10 - 10}
+            x={this.props.foodX * game.board.tileSize}
+            y={this.props.foodY * game.board.tileSize}
             width={game.board.tileSize}
             height={game.board.tileSize}
             fill={game.colors.food}

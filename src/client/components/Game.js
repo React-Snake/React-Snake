@@ -18,8 +18,8 @@ export default class Game extends Component {
   }
 
   generateFood() {
-    const foodX = Math.floor((Math.random() * game.board.stageWidth + 10) / 10 );
-    const foodY = Math.floor((Math.random() * game.board.stageHeight + 10) / 10 );
+    const foodX = Math.floor((Math.random() * game.board.stageWidth) / game.board.tileSize );
+    const foodY = Math.floor((Math.random() * game.board.stageHeight) / game.board.tileSize );
     this.setState({
         foodX: foodX,
         foodY: foodY,
