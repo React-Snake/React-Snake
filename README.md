@@ -1,5 +1,7 @@
 # \<Snake/>
 
+[Live Demo](https://react-snake.github.io/React-Snake/)
+
 This is a classic game of Snake made using React and Redux!
 It uses [React Konva](https://github.com/lavrton/react-konva) to easily interact with Canvas elements.
 
